@@ -22,7 +22,7 @@ JavaScript引擎是基于事件驱动单线程执行的，JS引擎一直等待�
 ```
 var isEnd = true
 window.setTimeout(function () {
-isEnd = false
+  isEnd = false
 }, 1000)
 while(isEnd)
 alert('end')
@@ -36,40 +36,40 @@ alert('end')
 
 ```
 function _LazyMan (name) { // lazyman构造函数
-    this.tasks = []
-    var self = this
-    var fn = function () {
-        console.log('Hi! This is ' + name + '!')
-        self.next()
-    }
-    this.tasks.push(fn)
-    setTimeout(function () {
-        self.next()
-    }, 0)
+  this.tasks = []
+  var self = this
+  var fn = function () {
+    console.log('Hi! This is ' + name + '!')
+    self.next()
+  }
+  this.tasks.push(fn)
+  setTimeout(function () {
+    self.next()
+  }, 0)
 }
 _LazyMan.prototype.next = function() {
-    var fn = this.tasks.shift()
-    fn && fn()
+  var fn = this.tasks.shift()
+  fn && fn()
 }
 _LazyMan.prototype.sleep = function (second) {
-    var self = this
-    var fn = function () {
-        setTimeout(function () {
-            console.log('Wake up after ' + second + ' seconds')
-            self.next()
-        }, second * 1000)
-    }
-    this.tasks.push(fn)
-    return this
+  var self = this
+  var fn = function () {
+    setTimeout(function () {
+      console.log('Wake up after ' + second + ' seconds')
+      self.next()
+    }, second * 1000)
+  }
+  this.tasks.push(fn)
+  return this
 }
 _LazyMan.prototype.eat = function (name) {
-    var self = this
-    var fn = function () {
-        console.log('Eat ' + name)
-        self.next()
-    }
-    this.tasks.push(fn)
-    return this
+  var self = this
+  var fn = function () {
+    console.log('Eat ' + name)
+    self.next()
+  }
+  this.tasks.push(fn)
+  return this
 }
 new _LazyMan('Siren').eat('dinner').sleep(10)
 ```
@@ -88,51 +88,51 @@ Promise解法代码：
 
 ```
 function _LazyMan (name) {
-    var makePromise = function () {
-        var promise = new Promise(function (resolve, reject) {
-            console.log('Hi! I am ' + name + '!')
-            resolve()
-        })
-        return promise
-    }
-    this.promiseMakerList = []
-    this.promiseMakerList.push(makePromise)
-    var self = this
-    var promiseTmp = new Promise(function (resolve, reject) {
-        resolve()
+  var makePromise = function () {
+    var promise = new Promise(function (resolve, reject) {
+      console.log('Hi! I am ' + name + '!')
+      resolve()
     })
-    setTimeout(function () {
-        for (var i = 0; i < self.promiseMakerList.length; i ++) {
-            var thenFn = (function (nowPromiseMaker) {
-                return nowPromiseMaker
-            })(self.promiseMakerList[i])
-            promiseTmp = promiseTmp.then(thenFn)
-        }
-    }, 0)
+    return promise
+  }
+  this.promiseMakerList = []
+  this.promiseMakerList.push(makePromise)
+  var self = this
+  var promiseTmp = new Promise(function (resolve, reject) {
+    resolve()
+  })
+  setTimeout(function () {
+    for (var i = 0; i < self.promiseMakerList.length; i ++) {
+      var thenFn = (function (nowPromiseMaker) {
+        return nowPromiseMaker
+      })(self.promiseMakerList[i])
+      promiseTmp = promiseTmp.then(thenFn)
+    }
+  }, 0)
 }
 _LazyMan.prototype.eat = function (name) {
-    var makePromise = function () {
-        var promise = new Promise(function (resolve, reject) {
-            console.log('eat ' + name + '~')
-            resolve()
-        })
-        return promise
-    }
-    this.promiseMakerList.push(makePromise)
-    return this
+  var makePromise = function () {
+    var promise = new Promise(function (resolve, reject) {
+      console.log('eat ' + name + '~')
+      resolve()
+    })
+    return promise
+  }
+  this.promiseMakerList.push(makePromise)
+  return this
 }
 _LazyMan.prototype.sleep = function (time) {
-    var makePromise = function () {
-        var promise = new Promise(function (resolve, reject) {
-            setTimeout(function () {
-                console.log('Wake up after ' + time + ' seconds!')
-                resolve()
-            }, time * 1000)
-        })
-        return promise
-    }
-    this.promiseMakerList.push(makePromise)
-    return this
+  var makePromise = function () {
+    var promise = new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        console.log('Wake up after ' + time + ' seconds!')
+        resolve()
+      }, time * 1000)
+    })
+    return promise
+  }
+  this.promiseMakerList.push(makePromise)
+  return this
 }
 new _LazyMan('Wang Yi').sleep(1).eat('dinner')
 ```
