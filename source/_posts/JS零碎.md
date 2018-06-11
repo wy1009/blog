@@ -1,7 +1,8 @@
 ---
 title: JS零碎
-date: 2018-06-07 15:35:14
-tags:
+date: 2017-03-08 15:35:18
+categories: [JavaScript, 基础]
+tags: [JavaScript]
 ---
 
 ## 浅复制和深复制
