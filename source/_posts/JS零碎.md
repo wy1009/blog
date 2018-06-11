@@ -253,3 +253,38 @@ requestAnimationFrame就是为此而出现的，如果浏览器设备绘制的�
 ## encodeURI和encodeURIComponent
 
 [https://www.cnblogs.com/season-huang/p/3439277.html](https://www.cnblogs.com/season-huang/p/3439277.html)
+
+## String特点
+
+字符串一旦创建，值就不能改变。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充变量。
+
+```
+var lang = 'Java'
+lang = lang + 'Script'
+```
+
+首先创建一个能够容纳10个字符的字符串，填充’Java’和’Script’，销毁原本的字符串’Java’和新的字符串’Script’。
+
+## 基本包装类型
+
+为了便于操作基本类型值，ECMAScript还提供了三个特殊的引用类型值：Boolean、Number、String。每当读取一个基本类型值的时候，后台会自动创建一个基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。
+
+```
+var str1 = 'Some String'
+var str2 = str1.substring(2)
+```
+
+变量str1包含一个字符串，字符串是基本类型值。而下一行调用了str1的substring方法，并将返回的结果保存在str2中。基本类型值不是对象，从逻辑上将没有方法。为了让我们实现这种直观的操作，要在内存中读取字符串时，后台进行了一系列操作：
+
+1. 创建String类型的一个实例；
+2. 在实例上调用指定的方法；
+3. 销毁创建的String实例。
+
+也可以显示创建基本包装类型的实例，对实例调用typeof会返回object。（相当于创建的是一个对象实例，而str = ‘Some String’只是单单创建了一个基本类型值。）
+
+Object构造函数也会根据传入值的类型返回相应的基本包装类型实例，如：
+
+```
+var obj = new Object('some text')
+console.log(obj instanceof String) // true
+```
