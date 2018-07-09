@@ -1,5 +1,5 @@
 ---
-title: 从作用域到作用域链
+title: 执行上下文及其重要属性：变量对象、作用域链、this
 date: 2017-04-13 11:10:18
 categories: [JavaScript, 基础]
 tags: [JavaScript]
