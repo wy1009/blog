@@ -1,7 +1,8 @@
 ---
 title: webpack零碎
 date: 2018-06-21 16:06:44
-tags:
+categories: [JavaScript, 框架/库/工具]
+tags: [webpack]
 ---
 
 ## publicPath
