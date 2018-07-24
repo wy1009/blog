@@ -1,5 +1,5 @@
 ---
-title: Underscore-js实现链式调用
+title: Underscore.js实现链式调用
 date: 2017-12-14 20:11:13
 categories: [框架/库/工具, Underscore.js]
 tags: [JavaScript, Underscore.js]
