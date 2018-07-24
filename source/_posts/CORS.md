@@ -135,10 +135,10 @@ Fetch与CORS的一个有趣的特性是，可以基于HTTP Cookies和HTTP认证�
 
 ```
 var invocation = new XMLHTTPRequest()
-var url = &apos;http://bar.other/resources/credentialed-content/&apos;
+var url = 'http://bar.other/resources/credentialed-content/'
 function callOtherDomain () {
   if (invocation) {
-    invocation.open(&apos;GET&apos;, url, true)
+    invocation.open('GET', url, true)
     invocation.widthCredentials = true
     invocation.onreadystatechange = handler
     invocation.send()
