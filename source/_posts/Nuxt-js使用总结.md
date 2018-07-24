@@ -1,6 +1,6 @@
 ---
 title: Nuxt.js使用总结
-date: 2018-07-24 17:19:31
+date: 2018-01-09 17:19:31
 categories: [框架/库/工具, Vue.js]
 tags: [JavaScript, Nuxt.js]
 ---
