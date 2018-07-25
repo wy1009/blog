@@ -1,6 +1,6 @@
 ---
 title: Underscore.js实现bind方法
-date: 2018-07-24 21:02:28
+date: 2018-01-23 21:02:28
 categories: [框架/库/工具, Underscore.js]
 tags: [JavaScript, Underscore.js]
 ---
