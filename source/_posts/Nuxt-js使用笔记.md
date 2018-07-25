@@ -1,5 +1,5 @@
 ---
-title: Nuxt.js使用总结
+title: Nuxt.js使用笔记
 date: 2018-01-09 17:19:31
 categories: [框架/库/工具, Vue.js]
 tags: [JavaScript, Nuxt.js]
@@ -7,7 +7,7 @@ tags: [JavaScript, Nuxt.js]
 
 ## Nuxt.js原理
 
-一开始不知道这是怎么做到服务器端渲染的，后来写着写着就明白了。启动一个Server，执行前端代码。我司后台用的是nginx，配置是将请求直接转发到这个Server。
+一开始不知道这是怎么做到服务器端渲染的，后来写着写着就明白了。启动一个Server，执行前端代码。我司后端用的是nginx，配置是将请求直接转发到这个Server。
 初次请求页面时，前端代码由Server端执行，生成一个内容完整而不是依赖js动态执行展示内容的HTML文件，再返回给Client端。
 之后则正常走单页面应用的逻辑。
 
@@ -24,7 +24,7 @@ tags: [JavaScript, Nuxt.js]
 
 ### 没有window/document
 
-1. 涉及到跳转，用context中的redirect代替window.location.href。需要注意，该方法在Client端执行时也可以使用，但是，在客户端执行时跳转的是相对路径。即，在客户端执行redirect(‘[https://www.google.com&#39;)，会跳转到“http://hostname/https://www.google.com”。因此，需要做好判断，在Client端用location.href代替redirect；](https://www.google.com&#39;)，会跳转到“http://hostname/https://www.google.com”。因此，需要做好判断，在Client端用location.href代替redirect；)
+1. 涉及到跳转，用context中的redirect代替window.location.href。需要注意，该方法在Client端执行时也可以使用，但是，在客户端执行时跳转的是相对路径。即，在客户端执行`redirect('https://www.google.com')`，会跳转到`http://hostname/https://www.google.com`。因此，需要做好判断，在Client端用location.href代替redirect；
 2. 涉及到cookie，参考上一节。
 
 ### 关于store

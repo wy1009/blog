@@ -45,7 +45,7 @@ var boundGetX = retrieveX.bind(module)
 boundGetX() // 81
 ```
 
-#### [#偏函数（partial-functions）](#偏函数（partial-functions）)偏函数（partial functions）
+#### 偏函数（partial functions）
 
 bind()的另一个简单用法是使一个函数具有预设的初始参数。这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们的后面。
 
@@ -60,7 +60,7 @@ var list2 = leadingThirtysevenList() // [37]
 var list3 = leadingThirtysevenList(1, 2, 3) // [37, 1, 2, 3]
 ```
 
-#### [#绑定函数作为构造函数使用](#绑定函数作为构造函数使用)绑定函数作为构造函数使用
+#### 绑定函数作为构造函数使用
 
 绑定函数当然也可以使用new操作符去构造目标函数创建的新实例。当绑定函数被用于构造一个值时，提供的this值被忽略。然而，提供的参数预先提供给构造器。
 
@@ -108,7 +108,7 @@ _.bind = restArgs(function (func, context, args) {
 本质上，实际上返回一个将目标函数包裹起来的绑定函数，利用闭包储存了context，在执行绑定函数时，就执行目标函数，同时将利用apply将this置为context。
 但这个方法不能够处理用new调用的情况。根据ES5标准，使用new调用bind函数，创建的应该是目标函数的实例。但是此时，使用new创建的显然是绑定函数的实例。
 
-### [#解决使用new创建实例的问题](#解决使用new创建实例的问题)解决使用new创建实例的问题
+### 解决使用new创建实例的问题
 
 underscore是这样解决这个问题的：
 
