@@ -37,6 +37,8 @@ tags: [JavaScript, 前端基础, 位置]
 
 **用盒子模型表达，就是……没有专门的框，就是显示在content-box中的内容的宽高（内容仅包含常规流中的元素），包括因设置overflow: auto/hidden藏起的部分**
 
+<!-- more -->
+
 ### left/top
 
 #### element.clientLeft/Top

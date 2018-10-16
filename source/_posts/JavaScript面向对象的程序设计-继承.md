@@ -36,6 +36,8 @@ console.log(instance.getSuperProperty())
 
 ![原型链](http://wx4.sinaimg.cn/large/7b1152ffly1feot7ymu7vj212g0uwq9b.jpg)
 
+<!-- more -->
+
 ### 判断实例与原型的关系
 
 - 

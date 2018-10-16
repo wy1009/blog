@@ -17,6 +17,8 @@ setTimeout(0)，主要看了以下链接的文章：http://www.cnblogs.com/silin
 
 JavaScript引擎是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。
 
+<!-- more -->
+
 例：
 
 ```

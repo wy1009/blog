@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 不会化妆的写手不是好程序员
+title: 不会化妆的写手<br>不是好程序员
 subtitle:
-description:
+description: 今天我有变得更厉害一点吗！>v<
 keywords:
-author: 王怡
+author: 泉先
 language:
 timezone:
 
@@ -73,9 +73,11 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: https://github.com/wy1009/wy1009.github.io.git
+  branch: master

@@ -32,6 +32,8 @@ console.log(undefined) // 10 -- IE8
 }）()
 ```
 
+<!-- more -->
+
 ### 用void 0代替undefined的原因
 
 1. MDN解释：

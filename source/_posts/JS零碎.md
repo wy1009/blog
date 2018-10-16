@@ -31,6 +31,8 @@ function copyObj(obj) {
 }
 ```
 
+<!-- more -->
+
 ## call与apply的区别
 
 功能上，都是调用一个对象的方法，以另一个对象替换当前对象。仅传递的参数不同，call从第二个参数开始作为方法的参数传入，而apply传入的是一个参数数组。使用apply的好处是可以直接将当前函数的arguments对象作为apply的第二个参数传入。

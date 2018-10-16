@@ -27,6 +27,8 @@ base value就是属性所在的对象或者就是EnvironmentRecord，它的值�
 
 referenced name就是属性的名称。
 
+<!-- more -->
+
 ```
 var foo = 1
 // 对应的Reference是：

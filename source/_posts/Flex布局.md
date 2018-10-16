@@ -27,6 +27,8 @@ Flex是Flexible Box的缩写，意为“弹性布局”。设为Flex布局以后
 
 项目默认沿主轴排列。单个项目占据的主轴空间叫做`main size`，占据的交叉轴空间叫做`cross size`。
 
+<!-- more -->
+
 ## 容器的属性
 
 - flex-direction

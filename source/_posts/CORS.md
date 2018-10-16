@@ -56,6 +56,8 @@ Content-Type: application/xml
 
 服务器返回的`Access-Control-Allow-Origin: *`表明该资源可以被任意外域访问，如果服务端仅允许来自`http://foo.example`的访问，该首部字段的内容如下：`Access-Control-Allow-Origin: http://foo.example`。
 
+<!-- more -->
+
 ### 预检请求
 
 “需预检的请求”要求必须首先使用OPTIONS方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。“预检请求”的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。

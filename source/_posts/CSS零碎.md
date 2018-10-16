@@ -25,6 +25,8 @@ IE盒模型，width = content-width + padding + border。设定好width后，增
 
 在元素位置固定的时候则分配尺寸（因此四边都为零会平铺满），尺寸固定则分配margin，此时margin设为auto自适应，元素就居中了。
 
+<!-- more -->
+
 ## clear:both之后
 
 clear:both之后，浮动元素下方的元素的margin-top会被覆盖（直到margin-top大到足以顶到一个不浮动的元素），但是浮动元素的margin-bottom却不会被覆盖。

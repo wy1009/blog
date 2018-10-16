@@ -41,6 +41,8 @@ stage0包含stage1，stage1包含stage2，stage2包含stage3。
 
 3. 为了支持一些特定应用场景下的语法，和ECMAScript标准没有关系。例如`babel-preset-react`是为了支持React开发中的JSX语法。
 
+<!-- more -->
+
 ## babel-polyfill
 
 babel编译为了保证正确的语义，只能转换语法，而不是增加或修改原有的对象和属性。所以babel不会转换新的API，例如`Iterator`、`Generator`、`Set`、`Map`、`Proxy`、`Reflect`、`Symbol`、`Promise`等全局对象，以及一些定义在全局对象上的方法，如`Object.assign`。如果想使用这些新的对象和方法，必须使用`babel-polyfill`。

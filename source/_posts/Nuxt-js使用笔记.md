@@ -22,6 +22,8 @@ tags: [JavaScript, Nuxt.js]
 - 在发送ajax请求时，需要通过req.headers.cookie将cookie取出，然后设置axios，以此做到发送ajax时携带cookie。为axios设置的cookie不能为undefined，否则报错“”value” required in setHeader(“cookie”, value)”；
 - 在收到响应后，如果后台set cookie，在Server端也无法正常达到将cookie set到Client端上的效果，而需要利用res.setHeader(‘set-cookie’, ‘cookie=cookie’)，从Server端设置Client端的cookie。
 
+<!-- more -->
+
 ### 没有window/document
 
 1. 涉及到跳转，用context中的redirect代替window.location.href。需要注意，该方法在Client端执行时也可以使用，但是，在客户端执行时跳转的是相对路径。即，在客户端执行`redirect('https://www.google.com')`，会跳转到`http://hostname/https://www.google.com`。因此，需要做好判断，在Client端用location.href代替redirect；

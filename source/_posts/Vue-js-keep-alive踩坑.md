@@ -34,6 +34,8 @@ router.beforeEach((to, from, next) => {
 })
 ```
 
+<!-- more -->
+
 ## 切换两个router-view控制组件是否keepAlive
 
 关于这个实现，我发现很多人都用了出自[vue-router 之 keep-alive](https://www.jianshu.com/p/0b0222954483)的方法：

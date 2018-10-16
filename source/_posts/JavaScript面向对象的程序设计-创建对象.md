@@ -27,6 +27,8 @@ var person2 = createPerson('Imaging boyfriend', '25', 'charming man')
 
 工厂模式解决了创建多个相似对象的问题，但没有解决对象识别的问题（即怎样知道一个对象的类型）。
 
+<!-- more -->
+
 ## 构造函数模式
 
 ```
