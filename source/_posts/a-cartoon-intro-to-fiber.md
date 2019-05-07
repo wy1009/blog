@@ -300,3 +300,7 @@ fiber 团队正在积极研究其他解决方案来帮助缓解饥饿问题。
 fiber 体系就是这样在短期内使 React app 变得更好的。fiber 允许更高优先级的更新跳到低优先级更新的前面，使更新在一起协调得更好。fiber 还使 UI 更加流畅且能够响应，这是靠将工作分解为更小的工作单元来做到的。工作单元可以被暂停，所以主线程可以去做其他需要做的任务。
 
 顺便一提，这套体系有个名字，叫做 cooperative scheduling。你在其他类型的软件中也能看到这个，比如操作系统让不同 app 在一起工作得更好。
+
+## 原视频
+
+[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.youtube.com/watch?v=ZCuYPiUIONs&t=312s)
