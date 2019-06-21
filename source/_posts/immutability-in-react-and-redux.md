@@ -29,7 +29,7 @@ tags: [JavaScript, React.js]
 
 我们可以通过一个例子来看可变性是怎样的。比如以下这个 `person` 对象：
 
-```
+``` JavaScript
 let person = {
   firstName: 'Bob',
   lastName: 'Loblaw',
@@ -43,7 +43,7 @@ let person = {
 
 接下来，我们写一个函数，给这个人赋予超能力：
 
-```
+``` JavaScript
 function giveAwesomePowers(person) {
   person.specialPower = 'invisibility'
   return person
@@ -54,7 +54,7 @@ function giveAwesomePowers(person) {
 
 让我们给 Loblaw 先生赋予超能力：
 
-```
+``` JavaScript
 // 刚开始，Bob 没有超能力 :(
 console.log(person)
 
@@ -104,7 +104,7 @@ console.log('Are they the same?', person === samePerson) // true
 
 下面是一个没有副作用的函数：
 
-```
+``` JavaScript
 function add(a, b) {
   return a + b
 }
@@ -130,7 +130,7 @@ function add(a, b) {
 
 如果你需要做这些操作，最简单的方法就是先复制出一个数组，然后在复制出的数组上做操作。你可以用以下方法复制一个数组：
 
-```
+``` JavaScript
 let a = [1, 2, 3]
 let copy1 = [...a]
 let copy2 = a.slice()
@@ -139,7 +139,7 @@ let copy3 = a.concat()
 
 所以，如果你想在数组上做一个不可变的排序，你可以这样做：
 
-```
+``` JavaScript
 let sortedArray = [...originalArray].sort(compareFunction)
 ```
 
@@ -157,7 +157,7 @@ let sortedArray = [...originalArray].sort(compareFunction)
 
 现在，我们可以用我们心里的规则重写这个方法了：
 
-```
+``` JavaScript
 function giveAwesomePowers(person) {
   let newPerson = Object.assign({}, person, {
     specialPower: 'invisibility',
@@ -175,7 +175,7 @@ function giveAwesomePowers(person) {
 
 另一种借用 `...` 运算符的写法是：
 
-```
+``` JavaScript
 function giveAwesomePowers(person) {
   let newPerson = {
     ...person,
@@ -190,7 +190,7 @@ function giveAwesomePowers(person) {
 
 现在，我们可以用我们纯函数版本的 `giveAwesomePowers` 重新跑一遍我们之前的代码了。
 
-```
+``` JavaScript
 // 刚开始，Bob 没有超能力 :(
 console.log(person)
 
@@ -219,7 +219,7 @@ console.log('Are they the same?', person === samePerson) // false
 
 如果你需要把一些数据传递回父组件，或者在父组件引发一些操作，你可以将一个方法作为 prop 传入子组件，然后在需要与父组件交流的时候，在子组件中调用这个方法。这是一个小例子：
 
-```
+``` JavaScript
 function Child(props) {
   // 当按钮被点击时，父组件传入的方法会被调用
   return (
@@ -279,7 +279,7 @@ JavaScript 对象和数组是被储存在内存中的。让我们假设内存里
 
 具体参见下面的代码：
 
-```
+``` JavaScript
 // 创建一个变量 `crayon`，指向一个盒子（未命名），盒子中保存着对象 `{ color: 'red' }`
 let crayon = { color: 'red' }
 
@@ -321,7 +321,7 @@ console.log(crayon2 === crayon) // true
 
 一般来说是这样。但 `const` 只会阻止你重新分配引用，而不会阻止你改变这个对象。这是一个例子：
 
-```
+``` JavaScript
 const order = { type = 'coffee' }
 
 // const 允许更改 order 的 type
@@ -351,7 +351,7 @@ Redux 要求 reducers 都是纯函数。也就是说，你不能直接更改 sta
 
 当 `...` 符号被写在对象或者数组的前面，它会展开对象或者数组的子属性，然后就把他们插入到原地。
 
-```
+``` JavaScript
 // 数组
 let nums = [1, 2, 3]
 let newNums = [...nums] // [1, 2, 3]
@@ -374,7 +374,7 @@ company.people === newCompany.people // true
 
 像上面这样，扩展操作符很方便就能创建一个和另一个对象/数组属性相同的新对象/数组。你可以轻松创建一个对象/数组的副本，然后重写你需要改变的特定属性：
 
-```
+``` JavaScript
 let liz = {
   name: 'Liz',
   age: 32,
@@ -408,7 +408,7 @@ let olderLiz = {
 
 在 Redux reducer 中，你可能这样写：
 
-```
+``` JavaScript
 return {
   ...state,
   (updates here),
@@ -417,7 +417,7 @@ return {
 
 如果要更新组件中的 state，只需要这样写：
 
-```
+``` JavaScript
 this.setState({
   updates here,
 })
@@ -429,7 +429,7 @@ this.setState({
 
 如果你想要更新 Redux state 的第一层属性，用 `...state` 复制原有的 state，然后列出你想要改变的属性和它们新的值就可以了。
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -454,7 +454,7 @@ function reducer(state, action) {
 
 如果你想要更新的对象没有在 Redux state 的第一层，你需要制作每一层的副本，包括你想要更新的那个对象。下面是例子：
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -480,7 +480,7 @@ function reducer(state, action) {
 
 另一个例子，更新更深一层：
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -515,7 +515,7 @@ function reducer(state, action) {
 
 （这不是 Redux 特有的，同样的方法也适用于组件中的 state。）
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -561,7 +561,7 @@ function reducer(state, action) {
 
 下面是在数组头部插入一项的不可变的做法，适用于 Redux：
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -585,7 +585,7 @@ function reducer(state, action) {
 
 下面是在数组尾部插入一项的不可变的做法：
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -603,7 +603,7 @@ function reducer(state, action) {
 
 你也可以先用 `.slice` 创建一个数组的副本，然后改变这个副本：
 
-```
+``` JavaScript
 function reducer(state, action) {
   const newItem = 0
   const newState = state.slice()
@@ -621,7 +621,7 @@ function reducer(state, action) {
 
 也就是说，如果你有一个 N 项的数组，然后想要一个仍旧有 N 项的新数组，使用 `.map`。你可以利用传入的函数更新/替换一项或是多项。
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -650,7 +650,7 @@ function reducer(state, action) {
 
 在这个例子中，我们有一个用户邮箱信息的数组。有一些用户的邮箱已经更换了，我们需要更新信息。我会展示用户的 id 和邮箱是如何作为 `action` 的一部分传入的，你当然也可以调整一下，接受来自其他地方的值（如果你没有在用 Redux）。
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -705,7 +705,7 @@ function reducer(state, action) {
 
 专业提示：这里是很容易犯错的，需要编写单元测试。
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -741,7 +741,7 @@ function reducer(state, action) {
 
 我们可以使用数组的 `.map` 方法为该 index 返回一个新的值，并保持其他项不变。
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -767,7 +767,7 @@ function reducer(state, action) {
 
 如果有一个 N 项的数组，你只想保留一部分，使用 `.filter`。
 
-```
+``` JavaScript
 function reducer(state, action) {
   /*
     State 的样子：
@@ -799,13 +799,13 @@ function reducer(state, action) {
 
 首先，你需要安装 Immer。（只有 2K，小但是很厉害。）
 
-```
+``` JavaScript
 yarn add immer
 ```
 
 然后，你需要从 Immer 引入 `produce` 函数。它只有这一个出口。这个函数就是它做的所有事。多么棒、美好而专注。
 
-```
+``` JavaScript
 import produce from 'immer'
 ```
 
@@ -813,7 +813,7 @@ import produce from 'immer'
 
 这样，你就可以使用 `produce` 函数为自己创造出一个小小的可变游乐场，你做出的所有改变都会被 JS 中转的魔法所处理。以下是对比，先是直接用 JS 更新一个嵌套在对象内部的值，然后是用 Immer：
 
-```
+``` JavaScript
 /*
   State 的样子：
 
@@ -871,7 +871,7 @@ Immer 对于组件中的 state 也很有用——通过函数形式的 setState�
 
 你可能已经知道 React 的 `setState` 有一个函数形式，可以接受一个函数，并向这个函数传入当前的 state。这个函数会返回新的 state：
 
-```
+``` JavaScript
 onIncrementClick = () => {
   // 普通形式
   this.setState({
@@ -889,7 +889,7 @@ onIncrementClick = () => {
 
 Immer 的 `produce` 方法可以被作为 state 的更新函数。你可能会注意到，在这种情况下调用 `produce` 只传入一个参数——更新函数——而不像 reducer 的例子里一样传入两个参数 `(state, draft => {})`。
 
-```
+``` JavaScript
 onIncrementClick = () => {
   this.setState(produce(draft => {
     draft.count += 1

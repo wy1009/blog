@@ -33,7 +33,7 @@ tags: [CSS]
 
 代码：
 
-```
+``` JavaScript
 var computedFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize)
 var configFontSize = parseFloat(document.documentElement.style.fontSize)
 

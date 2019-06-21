@@ -9,7 +9,7 @@ tags: [JavaScript]
 
 将父构造函数的实例赋给子构造函数指向的原型对象，使得子构造函数指向的原型对象中有[[prototype]]指向父构造函数的原型对象。这样层层连接，构成原型链。
 
-```
+``` JavaScript
 function SuperType () {
   this.property = 'super'
 }
@@ -43,7 +43,7 @@ console.log(instance.getSuperProperty())
 - 
 instanceof。只要用这个操作符测试实例与原型链中出现过的构造函数，就会返回true。
 
-```
+``` JavaScript
 instance instanceof Object // true
 instance instanceof SubType // true
 instance instanceof SuperType // true
@@ -51,7 +51,7 @@ instance instanceof SuperType // true
 
 - isPrototypeOf。只要是原型链中出现过的原型，就会返回true。
 
-```
+``` JavaScript
 Object.prototype.isPrototypeOf(instance) // true
 SubType.prototype.isPrototypeOf(instance) // true
 SuperType.prototype.isPrototypeOf(instance) // true
@@ -68,7 +68,7 @@ SuperType.prototype.isPrototypeOf(instance) // true
 
 在子构造函数内部调用父构造函数，this指向子构造函数的实例，相当于借父构造函数用一用，然后再执行自己的代码。这样父构造函数定义的属性就真的成为了子构造函数实例的实例属性，而不是原型属性。
 
-```
+``` JavaScript
 function SuperType () {
   this.colors = ['red', 'blue', 'green']
 }
@@ -87,7 +87,7 @@ console.log(instance2.colors) // ['red', 'blue', 'green']
 
 ### 传递参数
 
-```
+``` JavaScript
 function SuperType (colors) {
   this.colors = colors
 }
@@ -118,7 +118,7 @@ console.log(instance2.color) // pink
 
 将原型链和借用构造函数技术结合。使用原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承。
 
-```
+``` JavaScript
 function SuperType (colors, color) {
   this.colors = colors
   this.color = color
@@ -154,7 +154,7 @@ console.log(instance1 === instance2)
 
 借助原型基于已有的对象创建新对象，而不必因此创建自定义类型。
 
-```
+``` JavaScript
 function object (o) {
   function F () {}
   F.prototype = o
@@ -186,7 +186,7 @@ ES5通过新增Object.create()方法规范了原型式继承。该方法接收�
 
 Object.create()方法的第二个参数与Object.defineProperties()方法的第二个参数格式相同：每个属性都是通过自己的描述符定义的。
 
-```
+``` JavaScript
 var anotherPerson = Object.create(person, {
   name: {
     value: 'Wang Yi'
@@ -198,7 +198,7 @@ var anotherPerson = Object.create(person, {
 
 简单说，就是在利用原型式继承创建了新对象之后，再利用工厂模式/寄生构造函数模式（两个方式本来就基本相同）给新对象添加属性或方法。
 
-```
+``` JavaScript
 function object (o) {
   function F () {}
   F.prototype = o
@@ -228,7 +228,7 @@ anotherPerson.sayHi()
 
 寄生组合式继承可以解决组合继承的问题。寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混成方式来继承方法。其背后的基本思路是：不必为了指定子类型的原型而调用超类型的构造函数，我们所需要的无非就是超类型原型的一个副本而已。本质上，就是使用寄生式继承来继承超类型的原型，然后再将结果指定给子类型的原型。
 
-```
+``` JavaScript
 function object (o) {
   function F () {}
   F.prototype = o

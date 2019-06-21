@@ -29,7 +29,7 @@ referenced name就是属性的名称。
 
 <!-- more -->
 
-```
+``` JavaScript
 var foo = 1
 // 对应的Reference是：
 var fooReference = {
@@ -39,7 +39,7 @@ var fooReference = {
 }
 ```
 
-```
+``` JavaScript
 var foo = {
   bar: function () {
     return this
@@ -71,7 +71,7 @@ var barReference = {
 
 GetValue方法可以从Reference类型获取对应值。
 
-```
+``` JavaScript
 var foo = 1
 var fooReference = {
   base: EnvironmentRecord,
@@ -96,7 +96,7 @@ GetValue返回对象属性真正的值，即调用GetValue，返回的将是具�
 
 ### MemberExpression
 
-```
+``` JavaScript
 function foo () {
   console.log(this)
 }
@@ -123,7 +123,7 @@ foo.bar() // MemberExpression是foo.bar
 
 第一步是“计算MemberExpression的值赋给ref”，因此ref是不是一个Reference类型，关键在于看规范如何处理各种MemberExpression，返回的结果是不是一个Reference类型。
 
-```
+``` JavaScript
 var value = 1
 var foo = {
   value: 2,
@@ -149,7 +149,7 @@ MemberExpression的计算结果为foo.bar，首先确定foo.bar是不是一个Re
 
 因此，foo.bar是一个Reference类型，该值为：
 
-```
+``` JavaScript
 var reference = {
   base: foo,
   name: 'bar',
@@ -203,7 +203,7 @@ this为undefined。在非严格模式下，this的值为undefined的时候，其
 
 #### foo()
 
-```
+``` JavaScript
 function foo () {
   console.log(this)
 }
@@ -214,7 +214,7 @@ foo()
 MemberExpression是foo，解析标识符，根据规范10.3.1 Identifier Resolution，会返回一个Reference类型的值：
 
 
-```
+``` JavaScript
 var fooReference = {
   base: EnvironmentRecord,
   name: 'foo',

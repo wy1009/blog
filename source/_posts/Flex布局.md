@@ -9,7 +9,7 @@ tags: [CSS]
 
 Flex是Flexible Box的缩写，意为“弹性布局”。设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
 
-```
+``` CSS
 // 任何容器都可以指定为Flex布局
 .box {
   display: flex;

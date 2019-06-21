@@ -171,7 +171,7 @@ fiber 只是普通的 JavaScript object，它和 instance 一一对应，为 ins
 
 被传入 setState 的函数被称为更新函数（updater function）。
 
-```
+``` JavaScript
 this.setState((state, props) => {
   return {...}
 })

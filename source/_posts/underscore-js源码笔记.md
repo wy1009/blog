@@ -2,7 +2,7 @@
 title: Underscore.js源码笔记
 date: 2017-11-23 15:29:56
 categories: [框架/库/工具, Underscore.js]
-tags: [JavaScript, Underscore.js]
+tags: [JavaScript, Underscore.js, 源码]
 ---
 
 ## 用void 0代替undefined
@@ -11,21 +11,21 @@ tags: [JavaScript, Underscore.js]
 
 1. undefined并不是保留词（reserved word），只是全局对象的一个属性（`window.undefined === undefined`），因此在低版本的IE中可以被重写。
     
-```
+``` JavaScript
 var undefined = 10
 console.log(undefined) // 10 -- IE8
 ```
 
 1. undefined在ES5中已经是一个只读（read-only）属性了，不能被重写。但是在局部作用域中，还是可以被重写的。与浏览器版本无关。
 
-```
+``` JavaScript
 (function () {
   var undefined = 10
   console.log(undefined) // 10
 })()
 ```
 
-```
+``` JavaScript
 （function () {
   undefined = 10
   console.log(undefined) // undefined
@@ -82,7 +82,7 @@ parseInt()和parseFloat()则不同，只有对String类型调用这两个方法�
 
 在IE8中，将[‘valueOf’, ‘isPrototypeOf’, ‘toString’, ‘propertyIsEnumerable’, ‘hasOwnProperty’, ‘toLocaleString’]等内定为了“不可枚举属性”，即使该属性已经被重写。
 
-```
+``` JavaScript
 var obj = { toString: 'wangyi' }
 for (var key in obj) {
   console.log(key) // 不打印出任何东西
@@ -91,7 +91,7 @@ for (var key in obj) {
 
 Underscore.js解决这个问题的处理是：
 
-```
+``` JavaScript
 var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
 var nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString', 'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
 

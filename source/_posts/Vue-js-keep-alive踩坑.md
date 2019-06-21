@@ -21,7 +21,7 @@ btw过程中发现了好多博客的错误……
 
 我开始想的是第三种方法，在路由信息对象上记录数字，用这个数字标识层级。但是很快意识到，这种方法也不直观，最直观的方法莫过于直接压一个栈。当要去的路由等于栈顶的路由的时候，就相当于是后退了。
 
-```
+``` JavaScript
 let routerStack = []
 router.beforeEach((to, from, next) => {
   if (to.name === routerStack[routerStack.length - 1]) {
@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
 
 关于这个实现，我发现很多人都用了出自[vue-router 之 keep-alive](https://www.jianshu.com/p/0b0222954483)的方法：
 
-```
+``` HTML
 // App.vue
 
 <keep-alive>
@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
 <router-view v-if="!$route.meta.keepAlive"></router-view>
 ```
 
-```
+``` JavaScript
 // router.js
 
 router.beforeEach((to, from, next) => {
@@ -79,7 +79,7 @@ router.beforeEach((to, from, next) => {
 
 ## 控制include属性切换组件是否keepAlive
 
-```
+``` JavaScript
 router.beforeEach((to, from, next) => {
   if (to.name === routerStack[routerStack.length - 1]) {
     // 后退
@@ -130,7 +130,7 @@ include有一个很大的问题，就是只能够控制组件是否keepAlive，�
 
 因此，我更改了我的数据结构，将aliveList变更为`{ name: name, vm: vm }`的形式。
 
-```
+``` JavaScript
 Vue.mixin({
   beforeRouteEnter (to, from, next) {
     // 逻辑和include时一样，但是手动调用vm.$destroy
@@ -158,7 +158,7 @@ Vue.mixin({
 
 Vue这部分的源码如下：
 
-```
+``` JavaScript
 function pruneCacheEntry (
   cache,
   key,

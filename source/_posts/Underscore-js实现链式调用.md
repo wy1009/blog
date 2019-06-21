@@ -2,14 +2,14 @@
 title: Underscore.js实现链式调用
 date: 2017-12-14 20:11:13
 categories: [框架/库/工具, Underscore.js]
-tags: [JavaScript, Underscore.js]
+tags: [JavaScript, Underscore.js, 源码]
 ---
 
 ## underscore基本结构
 
 在全局变量上挂载一个对象“_”，将方法全部添加在这个对象上。
 
-```
+``` JavaScript
 var root = typeof self == 'object' && self.self === self && self ||
   typeof global == 'object' && global.global === global && global ||
   this ||
@@ -23,7 +23,7 @@ root._ = _
 
 调用underscore方法的两种方式：
 
-```
+``` JavaScript
 _.each(obj, function () {})
 
 // 面向对象风格
@@ -36,7 +36,7 @@ _(obj).each(function () {})
 
 ### 对`_`构造函数的处理
 
-```
+``` JavaScript
 var _ = function (obj) {
   if (!(this instanceof _)) {
     return new _(obj)
@@ -53,7 +53,7 @@ var _ = function (obj) {
 
 在`_`构造函数中，生成了一个包含了*wrapped属性的实例。显然还并不能够实现直接通过该实例调用方法，因此，需要将方法加入到`*`所指向的原型对象中。
 
-```
+``` JavaScript
 _.mixin = function (obj) {
   // _.functions为一个取出obj中所有方法名的函数
   _.each(_.functions(obj), function (name) {
@@ -79,7 +79,7 @@ _.mixin(_)
 
 underscore的链式调用需要借助`_.chain`方法。
 
-```
+``` JavaScript
 var lyrics = [
   'I\'m a lumberjack and I\'m okay',
   'I sleep all night and I work all day',
@@ -108,7 +108,7 @@ var counts = _.chain(lyrics).map()...
 在underscore中，如果你选择了链式调用，那么你调用的所有方法都是`_`原型对象上的方法。这也方便了对返回结果的统一处理。
 首先，将初始对象（即后续链式调用链上的方法的返回结果）通过`_.chain()`方法封装为一个带有_wrapped属性的实例，即前面所说的面向对象风格。同时通过`_chain`属性标记当前为链式调用模式。
 
-```
+``` JavaScript
 _.chain = function (obj) {
   obj = _(obj)
   obj._chain = true
@@ -118,7 +118,7 @@ _.chain = function (obj) {
 
 然后通过该实例调用underscore的方法，这样，所有的方法都会经由`_`原型对象上的方法的“外包装”的统一处理，即以下部分：
 
-```
+``` JavaScript
 _.prototype[name] = function () {
   // `_`的实例会调用的`_`的原型对象上的方法，而不是`_`的属性上的方法，因此可以直接通过this取到该实例
   var args = this._wrapped
@@ -131,7 +131,7 @@ _.prototype[name] = function () {
 
 再在这部分动些手脚：
 
-```
+``` JavaScript
 _.prototype[name] = function () {
   // `_`的实例会调用的`_`的原型对象上的方法，而不是`_`的属性上的方法，因此可以直接通过this取到该实例
   var args = this._wrapped
@@ -145,7 +145,7 @@ _.prototype[name] = function () {
 
 这样，只要是通过`_`的实例所调用的方法，即`_`原型对象上的方法，其返回值都会被“外包装”处理。此时可以通过实例上的`_chain`标记，判断此时是否为链式调用。如果是链式调用，则再次调用`_.chain`方法，将返回值封装为实例的`_wrapped`属性，标记`_chain`属性，重复以上步骤。以此来将普通的返回值封入实例，进行下一步调用。
 
-```
+``` JavaScript
 _.prototype.value = function () {
   return this._wrapper
 }

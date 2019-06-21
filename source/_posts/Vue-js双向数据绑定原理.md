@@ -2,7 +2,7 @@
 title: Vue.js双向数据绑定原理
 date: 2017-10-10 15:15:25
 categories: [框架/库/工具, Vue.js]
-tags: [JavaScript, Vue.js]
+tags: [JavaScript, Vue.js, 源码]
 ---
 
 写个（只有）自己能看懂的流程。

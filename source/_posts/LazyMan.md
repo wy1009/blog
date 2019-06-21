@@ -21,7 +21,7 @@ JavaScript引擎是基于事件驱动单线程执行的，JS引擎一直等待�
 
 例：
 
-```
+``` JavaScript
 var isEnd = true
 window.setTimeout(function () {
   isEnd = false
@@ -36,7 +36,7 @@ alert('end')
 
 根据思想写出的代码：
 
-```
+``` JavaScript
 function _LazyMan (name) { // lazyman构造函数
   this.tasks = []
   var self = this
@@ -88,7 +88,7 @@ then的链式调用有两种情况：
 
 Promise解法代码：
 
-```
+``` JavaScript
 function _LazyMan (name) {
   var makePromise = function () {
     var promise = new Promise(function (resolve, reject) {

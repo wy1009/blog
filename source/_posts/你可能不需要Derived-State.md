@@ -34,7 +34,7 @@ React 16.4 [为 `getDerivedStateFromProps` 修复了一个 bug](https://reactjs.
 
 让我们考虑一个例子来证明这个问题。以下是一个 `EmailInput` 组件，在 state 中“镜像”了一个 email prop：
 
-```
+``` JavaScript
 class EmailInput extends Component {
   state = { email: this.props.email }
 
@@ -63,7 +63,7 @@ class EmailInput extends Component {
 ### 反模式：当 props 改变的时候重置 state
 继续上面的例子，我们可以只在 `props.email` 改变的时候更新 state：
 
-```
+``` JavaScript
 class EmailInput extends Component {
   state = {
     email: this.props.email,
@@ -92,7 +92,7 @@ class EmailInput extends Component {
 ### 推荐：完全受控组件
 要避免上面提到的问题，一种方法是把 state 从组件中移除。如果 email prop 只作为 props 存在，那么我们就不需要担心和 state 有冲突。我们甚至可以把 `EmailInput` 转变为一个更轻量级的函数式组件：
 
-```
+``` JavaScript
 function EmailInput(props) {
   return <input onChange={props.onChange} value={props.email} />
 }
@@ -103,7 +103,7 @@ function EmailInput(props) {
 ### 推荐：带 key 的完全不受控组件
 另一个解决方法是，让我们的组件完全拥有“草稿”的 email state。这样，组件能够始终接收一个 prop 作为初始值，但会忽视掉对于 prop 后续的更新：
 
-```
+``` JavaScript
 class EmailInput extends Component {
   state = { email: this.props.defaultEmail }
 
@@ -119,7 +119,7 @@ class EmailInput extends Component {
 
 为了能在其他情况下使用的时候重置值（比如我们设想的密码管理应用的情况），我们可以使用 React 的特殊属性：`key`。当 `key` 改变的时候，React 会[创建一个新的组件实例，而不是更新目前的这一个](https://reactjs.org/docs/reconciliation.html#keys)。key 通常被用于动态列表，但在这种情况下也很有用。在我们的例子中，我们可以使用 user ID 作为key，使得每次新用户被选择时都重新创建 email input。
 
-```
+``` HTML
 <EmailInput defaultEmail={this.props.user.email} key={this.props.user.id}>
 ```
 
@@ -133,7 +133,7 @@ class EmailInput extends Component {
 #### 可替代方法 1：使用一个 id prop 重置非受控组件
 如果 `key` 因为某些原因不起作用（比如组件初始化的代价非常昂贵），一个可行的笨方法是在 `getDerviedStateFromProps` 中观察 user id 的更改：
 
-```
+``` JavaScript
 class EmailInput extends Component {
   state = {
     email: this.props.defaultEmail,
@@ -161,7 +161,7 @@ class EmailInput extends Component {
 #### 可替代方法 2：使用实例方法重置非受控组件
 在更加少见的情况下，你可能需要重置 state，但是没有合适的 ID 作为 `key`。一个解决方案是在每次想要重置的时候，利用随机值或者自增的数字作为 `key`。另一个可行的方法是，暴露一个实例方法来命令式地重置内部的 state：
 
-```
+``` JavaScript
 class EmailInput extends Component {
   state = {
     email: this.props.defaultEmail,
@@ -197,7 +197,7 @@ Ref 在像这样的例子里很有用，但是一般来讲，我们建议少使�
 
 来看一个例子，一个组件接收一个 prop——一个列表——并根据用户输入的查询字段渲染匹配的项。我们可以使用 derived state 储存过滤后的列表：
 
-```
+``` JavaScript
 class Example extends Component {
   state = {
     filterText: '',
@@ -237,7 +237,7 @@ class Example extends Component {
 
 这种做法避免了对 `filteredList` 不必要的重新计算。但是这种做法比正常要复杂得多。为了正确地更新过滤后的列表，需要同时分别追踪和监听 prop 和 state 中的变化。在这个例子中，我们可以用 `PureComponent` 简化，把过滤操作移动到 render 方法中。
 
-```
+``` JavaScript
 // 纯组件只在有 state 或者 prop 改变的时候重新渲染
 // 对 state 和 prop 做浅比较来决定是否改变
 class Example extends PureComponent {
@@ -265,7 +265,7 @@ class Example extends PureComponent {
 
 上面的方法比 derived state 的版本更加干净简单。在个别情况下，这不够好——对很大的列表来说，过滤可能会慢，而在其他 prop 改变的时候，`PureComponent` 不会阻止渲染。为了解决这两个问题，我们可以添加 memoization 避免对列表不必要的重新过滤：
 
-```
+``` JavaScript
 import memoize from 'memoize-one'
 
 class Example extends Component {

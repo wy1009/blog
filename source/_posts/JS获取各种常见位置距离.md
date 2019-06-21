@@ -116,7 +116,7 @@ height：元素下外边框距离(0, 0)点的距离减去元素上外边框距�
 
 页面向左/上卷去的长度。
 
-```
+``` JavaScript
 // 取网页卷去距离
 const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
 const scrollLeft = document.documentElement.scrollLeft || window.pageXOffset || document.body.scrollLeft

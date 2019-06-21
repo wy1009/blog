@@ -9,7 +9,7 @@ tags: [JavaScript]
 
 ## 工厂模式
 
-```
+``` JavaScript
 function createPerson (name, age, job) {
   var o = new Object()
   o.name = name
@@ -31,7 +31,7 @@ var person2 = createPerson('Imaging boyfriend', '25', 'charming man')
 
 ## 构造函数模式
 
-```
+``` JavaScript
 function Person (name, age, job) {
   this.name = name
   this.age = age
@@ -55,7 +55,7 @@ var person2 = new Person('Imaging boyfriend', '25', 'charming man')
 
 在前面例子的最后，person1和person2分别保存着Person的不同实例。这两个对象都有一个constructor属性，该属性指向Person。**记得回来补充关于prototype的更准确的说法**
 
-```
+``` JavaScript
 person1.constructor === Person // true
 person2.constructor === Person // true
 person1.constructor === Object // false
@@ -70,8 +70,7 @@ person1 instanceof Object // true
 
 构造函数也有缺点，就是每个方法都需要在实例上重新创建一遍。创建两个完成同样任务的Function实例没有必要，有this对象在，也不需要在执行代码前就把函数绑定在特定对象上。因此，可以将函数定义转移到构造函数外部来解决这个问题。
 
-    
-```
+``` JavaScript
 function Person () {
   this.name = 'Wang Yi'
   this.getName = getName
@@ -98,7 +97,7 @@ new Person().getName()
 
 我们创建的每个函数都有一个prototype属性，这个属性是一个指针，指向一个对象，这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。如果按照字面意思来理解，prototype就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以让所有对象实例共享它所包含的属性和方法。
 
-```
+``` JavaScript
 function Person () {}
 Person.prototype.name = 'Wang Yi'
 Person.prototype.age = 'forever 21'
@@ -157,7 +156,7 @@ person1.getName === person2.getName
 
 构造函数与原型混成的模式，是目前在ECMAScript中使用最广泛、认同度最高的一种创建自定义类型的方法。可以说，这是用来定义引用类型的一种默认模式。
 
-```
+``` JavaScript
 function Person (name, age, job) {
   this.name = name
   this.age = age
@@ -185,7 +184,7 @@ console.log(person1.getName === person2.getName) // true
 
 为靠近其他OO语言的形式，将所有信息都封装在构造函数中。而通过在构造函数中初始化原型（仅在必要的情况下），又保持了同时使用构造函数和原型的优点。可以通过检测某个应该存在的方法是否有效，来决定是否需要初始化原型。
 
-```
+``` JavaScript
 function Person (name, age, job) {
   this.name = name
   this.age = age
@@ -202,7 +201,7 @@ function Person (name, age, job) {
 
 ## 寄生构造函数模式
 
-```
+``` JavaScript
 function Person (name, age) {
   var o = new Object()
   o.name = name
@@ -221,7 +220,7 @@ friend.getName()
 
 假设我们想要创建具有额外方法的特殊数组，又不能直接修改Array的构造函数，就可以使用这个模式：
 
-```
+``` JavaScript
 function SpecialArray () {
   var values = new Array()
   values.push.apply(values, arguments)
@@ -241,7 +240,7 @@ console.log(colors.toPipedString()) // red|blue|green
 
 所谓稳妥对象，指的是没有公共属性，而且其方法也不引用this的对象。稳妥对象最适合在一些安全的环境中（这些环境会禁止使用this和new），或者在防止数据被其他应用程序改动时使用。稳妥构造函数遵循与寄生构造函数类似的模式，但有两点不同：一是新创建对象的实例方法不引用this；二是不使用new操作符调用构造函数。
 
-```
+``` JavaScript
 function Person (name, age, job) {
   var o = new Object()
   o.getName = function () {

@@ -13,7 +13,7 @@ tags: [JavaScript]
 
 深复制递归实现：
 
-```
+``` JavaScript
 function copyObj(obj) {
   if (obj.constructor == Array) {
     return obj.slice()
@@ -43,7 +43,7 @@ function copyObj(obj) {
 
 【scroll事件是在window对象上发生的，也可以用在有滚动条的元素上。】
 
-```
+``` JavaScript
 function debounce(fn, delay) {
   var timer = null
   return function () {
@@ -65,7 +65,7 @@ document.getElementById('container').addEventListener('scroll', debounce(functio
 
 利用了事件冒泡/捕获的原理，把事件监听绑定在父元素或祖元素上，避免重复查找元素，避免绑定多个事件处理函数占用内存，优化性能。
 
-```
+``` JavaScript
 <ul>
   <li></li>
   <li></li>
@@ -87,7 +87,7 @@ document.getElementById('container').addEventListener('scroll', debounce(functio
 
 在进行变量提升时，函数声明的提升包括函数体，且在预执行期就已经执行了函数声明，在脚本中实际声明的位置不会重复执行。而函数表达式和其他类型的变量提升一样，只提升变量的声明。因此，将会出现如下两种情况：
 
-```
+``` JavaScript
 fn()
 function fn () {
   console.log('fn')
@@ -102,7 +102,7 @@ var fn = function () {
 // 函数声明的提升包括函数体
 ```
 
-```
+``` JavaScript
 fn ()
 if (true) {
   function fn () {
@@ -120,7 +120,7 @@ if (true) {
 
 ## JS赋值顺序
 
-```
+``` JavaScript
 var a = {n: 1}
 var b = a
 a.x = a = {n: 2}
@@ -141,7 +141,7 @@ a.x = a = {n: 2}
 
 每个元素（包括document和window）都有自己的事件处理程序属性，这些属性通常全部小写，例如onclick。将这种属性的值设置为一个函数，就可以指定事件处理程序。
 
-```
+``` JavaScript
 // 使用HTML指定事件处理程序
 <button id="myBtn" onclick="alert('Clicked!')">Button</button>
 
@@ -157,7 +157,7 @@ btn.onclick = function () {
 
 （如果浏览器支持DOM事件流，）以这种方式被添加的事件处理程序会在事件流的冒泡阶段被处理。
 
-```
+``` JavaScript
 btn.onclick = null // 删除通过DOM0级方法指定的事件处理程序
 ```
 
@@ -171,7 +171,7 @@ btn.onclick = null // 删除通过DOM0级方法指定的事件处理程序
 
 通过addEventListener()添加的事件处理程序只能使用removeEventListener()移除，移除时传入参数与添加处理程序时使用的参数相同。这意味着通过addEventListener()添加的匿名函数将无法移除。
 
-```
+``` JavaScript
 var btn = document.getElementById('myBtn')
 
 var handler = function () {
@@ -192,7 +192,7 @@ attachEvent()的第一个参数是“onclick”，而不是DOM的addEventListene
 
 在IE中使用attachEvent()与DOM0级方法的主要区别在于事件处理程序的作用域。在使用DOM0级方法的情况下，事件处理程序会在其所属元素的作用域内运行；在使用attachEvent()方法的情况下，事件处理程序的this等于window。
 
-```
+``` JavaScript
 var btn = document.getElementById('myBtn')
 btn.attachEvent('onclick', function () {
   alert(window === this) // true
@@ -207,7 +207,7 @@ btn.attachEvent('onclick', function () {
 
 DocumentFragment节点不属于文档树，继承的parentNode节点总是null。不过它有一个特殊行为，使它十分有用，即：当请求将一个DocumentFragment节点插入文档树时，插入的不是DocumentFragment节点自身，而是它的所有子孙节点。这使得DocumentFragment成了有用的占位符，暂时存放那些一次插入文档的节点，还有利于实现文档的剪切、复制和粘贴操作。
 
-```
+``` JavaScript
 (() => {
   var ndContainer = document.getElementById('js-list')
   if (!ndContainer) {
@@ -260,7 +260,7 @@ requestAnimationFrame就是为此而出现的，如果浏览器设备绘制的�
 
 字符串一旦创建，值就不能改变。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充变量。
 
-```
+``` JavaScript
 var lang = 'Java'
 lang = lang + 'Script'
 ```
@@ -271,7 +271,7 @@ lang = lang + 'Script'
 
 为了便于操作基本类型值，ECMAScript还提供了三个特殊的引用类型值：Boolean、Number、String。每当读取一个基本类型值的时候，后台会自动创建一个基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。
 
-```
+``` JavaScript
 var str1 = 'Some String'
 var str2 = str1.substring(2)
 ```
@@ -286,7 +286,7 @@ var str2 = str1.substring(2)
 
 Object构造函数也会根据传入值的类型返回相应的基本包装类型实例，如：
 
-```
+``` JavaScript
 var obj = new Object('some text')
 console.log(obj instanceof String) // true
 ```

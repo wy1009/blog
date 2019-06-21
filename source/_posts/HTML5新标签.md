@@ -13,7 +13,7 @@ article元素表示文档、页面、应用或网站中的独立结构，其意�
 * 元素的作者信息可通过address元素提供，但是不适用于嵌套的article元素。
 * article元素的发布日期和时间可通过time元素的pubdate属性表示。
 
-```
+``` HTML
 <article class="film_review">
   <header>
     <h2>Jurassic Park</h2>
@@ -70,7 +70,7 @@ audio元素用于在文档中表示音频内容。audio元素可以包含多个�
 
 video元素用于在HTML或者XHTML文档中嵌入视频内容。
 
-```
+``` HTML
 <!-- Simple video example -->
 <video src="videofile.ogg" autoplay poster="posterimage.jpg">
   抱歉，您的浏览器不支持内嵌视频，不过不用担心，你可以 <a href="videofile.ogg">下载</a>
@@ -107,7 +107,7 @@ details元素用于描述文档或文档某个部分的细节，用户可进行�
 
 summary元素包含details元素的标题，details元素用于描述有关文档或文档片段的更多详情。
 
-```
+``` HTML
 <details>
   <summary>Some details</summary>
   <p>More info about the details.</p>
@@ -143,7 +143,7 @@ footer元素表示最近一个章节内容或者根节点（sectioning root）�
 
 hgroup标签用于对网页或区段（section）的标题进行组合。如：
 
-```
+``` HTML
 <hgroup>
   <h1>Main title</h1>
   <h2>Secondary title</h2>
@@ -158,7 +158,7 @@ mark标签代表突出显示的文字,例如可以为了标记特定上下文中
 
 meter元素用来显示已知范围的标量值或者分数值。
 
-```
+``` HTML
 <meter value="3" min="0" max="10">3/10</meter>
 ```
 
@@ -170,7 +170,7 @@ HTML导航栏 (nav) 描绘一个含有多个超链接的区域，这个区域包
 
 output标签定义一个用户的操作或者计算的结果。
 
-```
+``` HTML
 <form oninput="result.value=parseInt(a.value)+parseInt(b.value)">
     <input type="range" name="b" value="50" /> +
     <input type="number" name="a" value="10" /> =
@@ -182,7 +182,7 @@ output标签定义一个用户的操作或者计算的结果。
 
 progress元素用来显示一项任务的完成进度。虽然规范中没有规定该元素具体如何显示，浏览器开发商可以自己决定，但通常情况下，该元素都显示为一个进度条形式。
 
-```
+``` HTML
 <progress value="70" max="100">70 %</progress>
 ```
 
@@ -190,7 +190,7 @@ progress元素用来显示一项任务的完成进度。虽然规范中没有规
 
 ruby元素被用来展示东亚文字注音或字符注释。rt元素显示注音，rp元素定义在当前浏览器不支持ruby元素时所显示的内容。
 
-```
+``` HTML
 <ruby>
   漢 <rp>(</rp><rt>Kan</rt><rp>)</rp>
   字 <rp>(</rp><rt>ji</rt><rp>)</rp>
@@ -201,7 +201,7 @@ ruby元素被用来展示东亚文字注音或字符注释。rt元素显示注�
 
 source标签为媒介元素（比如video和audio）定义媒介资源。例为拥有两份源文件的音频播放器，浏览器会选择它支持的文件（如果有的话）。
 
-```
+``` HTML
 <audio controls>
    <source src="horse.ogg" type="audio/ogg">
    <source src="horse.mp3" type="audio/mpeg">

@@ -135,7 +135,7 @@ Access-Control-Max-Age: 86400
 
 Fetch与CORS的一个有趣的特性是，可以基于HTTP Cookies和HTTP认证信息发送身份凭证。一般而言，对于跨域XMLHTTPRequest或Fetch请求，浏览器不会发送身份凭证信息。如果要发送凭证信息，需要设置`XMLHTTPRequest`的特殊标识位`withCredentials`：
 
-```
+``` JavaScript
 var invocation = new XMLHTTPRequest()
 var url = 'http://bar.other/resources/credentialed-content/'
 function callOtherDomain () {

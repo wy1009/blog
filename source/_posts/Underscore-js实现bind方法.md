@@ -2,7 +2,7 @@
 title: Underscore.js实现bind方法
 date: 2018-01-23 21:02:28
 categories: [框架/库/工具, Underscore.js]
-tags: [JavaScript, Underscore.js]
+tags: [JavaScript, Underscore.js, 源码]
 ---
 
 ## ES5中的bind
@@ -28,7 +28,7 @@ bind()函数会创建一个新函数（称为绑定函数），新函数与被�
 
 bind()最简单的用法是创建一个函数，使这个函数无论怎么调用都有同样的this值。
 
-```
+``` JavaScript
 this.x = 9
 
 var module = {
@@ -51,7 +51,7 @@ boundGetX() // 81
 
 bind()的另一个简单用法是使一个函数具有预设的初始参数。这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们的后面。
 
-```
+``` JavaScript
 function list () {
   return Array.prototype.slice.call(arguments)
 }
@@ -66,7 +66,7 @@ var list3 = leadingThirtysevenList(1, 2, 3) // [37, 1, 2, 3]
 
 绑定函数当然也可以使用new操作符去构造目标函数创建的新实例。当绑定函数被用于构造一个值时，提供的this值被忽略。然而，提供的参数预先提供给构造器。
 
-```
+``` JavaScript
 function Point (x, y) {
   this.x = x
   this.y = y
@@ -99,7 +99,7 @@ empty.x + ', ' + empty.y // 0, 13
 
 也是一开始我自己写出的方法：
 
-```
+``` JavaScript
 _.bind = restArgs(function (func, context, args) {
   return restArgs(function (callArgs) {
     return func.apply(context, args.concat(callArgs))
@@ -114,7 +114,7 @@ _.bind = restArgs(function (func, context, args) {
 
 underscore是这样解决这个问题的：
 
-```
+``` JavaScript
 var baseCreate = function (obj) {
   var Ctor = function () {}
   Ctor.prototype = obj
