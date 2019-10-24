@@ -2,7 +2,7 @@
 title: Vue.js keep-alive踩坑
 date: 2018-03-08 15:39:56
 categories: [框架/库/工具, Vue.js]
-tags: [JavaScript, Vue.js, 踩坑]
+tags: [JavaScript, Vue.js, 记录]
 ---
 
 发现面试好像会喜欢问“项目中遇到的难点”这样的问题。但说实话，难点这种东西，难了不会，会了不难，一旦解决了就觉得也还好，过段时间也就忘了，再过段时间，哪怕能想起来，也一定觉得不是什么值得说出来的问题。

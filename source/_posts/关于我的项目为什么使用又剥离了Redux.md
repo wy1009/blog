@@ -2,7 +2,7 @@
 title: 关于我的项目为什么使用又剥离了Redux
 date: 2018-11-05 18:33:18
 categories: [框架/库/工具, React.js]
-tags: [JavaScript, React.js]
+tags: [JavaScript, React.js, 记录]
 ---
 
 关于我的项目这么简单我为什么又折腾了。
