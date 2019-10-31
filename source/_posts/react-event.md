@@ -9,7 +9,7 @@ tags: [JavaScript, React.js, 源码]
 
 为了解决这个问题，很快，我从文档中查阅到，React 中的事件是由自己合成的“合成事件”，事件上的 `e.nativeEvent` 才是真正的原生事件。于是，我就尝试在事件处理函数中执行 `e.nativeEvent.stopPropagation()`，却仍旧无法阻止冒泡。
 
-要搞清楚这个原因，就需要了解 React 的事件机制。
+要搞清楚出现这个问题的原因，就需要了解 React 的事件机制。
 
 React 的事件机制是基于事件委托的。所有 React 的事件监听实际都是被绑定在 document 上的。
 
@@ -66,6 +66,8 @@ class Child extends React.Component {
 
 export default Child
 ```
+
+<!-- more -->
 
 ## 事件处理函数的绑定
 
@@ -154,7 +156,7 @@ export function listenTo(
 
 `scroll`、`focus`、`blur`、`cancel`、`close` 事件在捕获阶段处理，也就是执行 `trapCapturedEvent` 方法。`invalid`、`submit`、`reset`以及媒体相关的事件不作处理。除此之外，其他所有时间都是在冒泡阶段处理的，也就是执行上文代码中的 `trapBubbledEvent` 方法。
 
-同时可以注意一下，此处使用了 `isListening` 来记录对应处理方法是否已经被绑定在了 document 上。毕竟是事件委托，同样的一种事件只需要在 document 上绑定一次即可。
+同时可以注意一下，此处使用了 `isListening` 来记录对应处理方法是否已经被绑定在了 document 上。因为 React 是将事件监听绑定在 document 上的，也就是事件委托模式，所以同样的一种事件只需要在 document 上绑定一次即可。
 
 ### `trapBubbledEvent`
 
@@ -191,7 +193,7 @@ export function trapBubbledEvent(
 
 #### `dispatchEvent`
 
-点击“请点击”之后，立即出发 document 上绑定的 `dispatchEvent`。
+点击“请点击”之后，立即触发 document 上绑定的 `dispatchEvent`。
 
 ``` JavaScript
 export function dispatchEvent(
@@ -1002,3 +1004,38 @@ function releaseTopLevelCallbackBookKeeping(instance) {
 操作同样，都是先清空实例，然后看池子中是否还有位置，如果有位置，则放入池中。
 
 至此，React 事件机制就已经介绍完成了。
+
+## 总结
+
+### 在 document 上绑定事件处理函数
+
+如果 props 出现 `onClick` ，则在 document 上绑定针对 click 事件的处理方法，只绑定一次。其他事件同理。
+
+这样，原生事件冒泡（某些事件是捕获）到 document 时，则触发 React 绑定的处理方法。
+
+### 执行 document 上的事件处理函数
+
+触发事件，则触发了 document 上绑定的处理方法。
+
+该方法从原生事件中取得原生事件本身、触发事件的元素、触发事件的元素对应的 fiberNode、事件类型，然后分别进行两步重要操作：1. 提取（创建或从事件池中取出）合成事件；2. 执行用户绑定的事件处理函数。
+
+#### 提取事件
+
+根据事件类型不同，执行不同的提取事件方法。以常见的点击事件为例：
+
+1. 先新建（或从事件池中取出）一个对象，然后将原生事件的必要属性按照 React 希望的形式赋值到该对象上；
+2. 从触发事件的 fiberNode 开始一直向上遍历到 HostRoot（即 #root 对应的 fiberNode），取得所有可以绑定事件的 fiberNode（即 HostComponent 类型）形成一个链条。
+3. 模拟捕获阶段和冒泡阶段，分别从 HostRoot 遍历到触发事件的 fiberNode，取出上面期望绑定在捕获阶段的事件处理函数（即 props onClickCapture），储存在合成事件上，然后模拟冒泡阶段，反着遍历，将绑定在冒泡阶段的事件处理函数（即 props onClick）记录在合成事件上，形成数组。其对应的 fiberNode 也同步记录在另一个数组中，与事件处理函数的数组一一对应。
+
+#### 执行事件处理函数（用户绑定的）
+
+遍历事件中储存的事件处理函数列表，循环依次执行。执行完整个列表后，清空该列表以及其对应的 fiberNode 列表、
+
+#### 将事件实例释放到池中
+
+1. 初始化事件上的所有属性；
+2. 如果事件池中的事件数目小于预设值，则将事件实例推入池中。
+
+## 动图
+
+找到了一位作者为这个过程制作的[React 事件机制动图](https://www.lzane.com/animate/react-event-system/index.html)，应该能便于大家理解。
