@@ -17,5 +17,6 @@
 ## 命令
 
 - `hexo server` 启动本地服务，默认 http://localhost:4000
+- `hexo new "文章标题"` 新建文章
 - `hexo generate` 生成静态文件。node 版本选择 10，太高后切低版本 deploy 直接白屏。
 - `hexo publish` 发布静态文件。node 版本选择 10，太高报错。
