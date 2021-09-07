@@ -42,7 +42,7 @@ JavaScript的可执行代码（executable code）的类型有三种：全局代�
 var a = 1;
 
 console.log(this.a) // 1
-``` 
+```
 
 - 浏览器JavaScript中，全局对象有window属性指向自身。
 
@@ -74,7 +74,7 @@ foo(1)
 ```
 
 在全局作用域中运行`foo()`时，foo()的执行上下文开始创建：
- 
+
 ``` JavaScript
 fooEC = {
     VO: {},
@@ -97,7 +97,7 @@ VO = {
 #### 执行阶段，变量对象的赋值
 
 在未进入执行阶段之前，变量对象中的属性都不能访问。但是在进入执行阶段之后，变量对象（VO）转变为活动对象（AO），里面的属性都能被访问了，然后开始进行执行阶段的操作。
-    
+
 ``` JavaScript
 VO -> AO
 
@@ -145,7 +145,6 @@ JavaScript采用词法作用域（lexical scoping），也就是静态作用域�
 
 因为采用词法作用域，函数的作用域在函数定义的时候就已经决定了。与词法作用域相对的是动态作用域，函数的作用域在函数调用的时候才决定。
 
-    
 ``` JavaScript
 var value = 1
 function func1 () {
@@ -171,7 +170,7 @@ func2()
 #### 作用域链的构成
 
 函数有一个内部属性[[scope]]，当函数创建的时候，就会保存所有父变量对象到其中，可以理解为[[scope]]就是所有父变量对象的层级链。
-    
+
 ``` JavaScript
 function foo () {
     function bar () {
