@@ -46,3 +46,11 @@ clear:both之后，浮动元素下方的元素的margin-top会被覆盖（直到
 好奇怪，为什么我长期以来都有一个谬误，觉得 `width: 100%` 是相对于父元素宽度的，所以如果父元素有 padding，则内容 100% 会超出。**这是错误的。**
 
 其实是相对于父元素 content 盒子的宽度，不包括 padding。所以 `width: 100%` 会刚好充满父元素，并不会超出。
+
+## CSS 的加载会阻塞吗？
+
+https://www.cnblogs.com/chenjg/p/7126822.html
+
+CSS 的加载不会阻塞 DOM 树的解析，但是会阻塞 DOM 树的渲染。
+CSS 的加载会阻塞 JS 的执行。即遇到 script 标签且此时 CSS 正在加载，该 script 标签不会执行。在 JS 被阻塞执行的时候，后续 html 也不会解析。
+JS 的执行也会阻塞后续 html 的解析。加载默认也会阻塞，但是加上 defer sync 则加载不会阻塞。等到执行时仍旧会阻塞。
