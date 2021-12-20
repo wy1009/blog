@@ -53,8 +53,8 @@ app.prepare().then(() => {
 
 ## 无法访问到启动的服务
 
-走的就是上面博客的写一个 server.js 的方式。访问 https://localhost:3000，Chrome 无法访问，显示 ERR_SSL_KEY_USAGE_INCOMPATIBLE。
-于是下意识访问 http://localhost:3000，仍旧无法访问。这时候，我就认为是启动的服务有问题。
+走的就是上面博客的写一个 server.js 的方式。访问 https://localhost:3000 ，Chrome 无法访问，显示 ERR_SSL_KEY_USAGE_INCOMPATIBLE。
+于是下意识访问 http://localhost:3000 ，仍旧无法访问。这时候，我就认为是启动的服务有问题。
 此时非常迷茫，没有看到任何报错，反复对比代码也没有问题。把启动的 createServer 改为从 http 包再访问就是正常的。所以怀疑是 https 包的问题。根据网上的回复不断尝试重装包、重新启动服务和更改服务端口号到 443，都没有效果。
 此时看到一个 github issue，有人提示启动 https 服务需要访问 https 地址，提问者回复确实是没有访问 https，访问的是 http 地址，所以才导致无法访问到服务。
 这时候，我才意识到，用 https 包启动的服务，使用 http 方法是无法访问到的。所以服务本身很可能是没有问题的，我只是被 http 无法访问给误导了。
@@ -62,7 +62,9 @@ app.prepare().then(() => {
 
 ## 使用 https 访问服务报错
 
-该问题最终查到了这个 [issue](https://github.com/FiloSottile/mkcert/issues/253)，其中有一个回复：
+感觉是证书安装有问题，在钥匙串里查了半天，也 uninstall 然后重新 install 生成了新的证书。但是仍旧没有效果。
+
+最终在这个 [issue](https://github.com/FiloSottile/mkcert/issues/253) 中查到了原因。该 issue 中有一个回复：
 
 > If you are seeing this error, it means you are trying to use the root CA directly. You are NOT supposed to use rootCA.pem directly. Instead, generate a certificate for localhost or example.com with mkcert localhost or mkcert example.com and use that.
 
