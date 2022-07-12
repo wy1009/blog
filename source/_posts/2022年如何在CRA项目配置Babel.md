@@ -12,9 +12,9 @@ tags: [Babel, CRA]
 
 # CRA 项目引入 babel
 
-原本的 `@babel/polyfill` 已经在 babel 7.4.0 版本中启用，如今完整的 polyfill 已经转移到了 `core-js` 中。实际上，直接 `import core-js` 就可以解决所有问题了。但这势必会造成包的臃肿，因而需要对 babel 进行配置。
-贴心的 babel 提供了两种按需加载方式，`useBuiltIns` 配置为 `entry` 或 `usage`。
-如果配置为 entry，babel 则会通过对 browserlists 的配置，按需引入 `core-js` 的代码，如官方示例：
+原本的 `@babel/polyfill` 已经在 babel 7.4.0 版本中被弃用，如今完整的 polyfill 已经转移到了 `core-js` 中。实际上，直接 `import core-js` 就可以解决所有问题了。但意味着引入了所有的 polyfill，不管你想支持的浏览器版本，不管你实际使用了哪些方法。这势必会造成包的臃肿，因而需要对 babel 进行配置。
+贴心的 babel 提供了两种按需加载方式，`@babel/preset-env` 的 `useBuiltIns` 可配置为 `entry` 或 `usage`。
+如果配置为 `entry`，babel 则会通过对 browserlists 的配置，按需引入 `core-js` 的代码，如官方示例：
 
 你的代码：
 
@@ -47,7 +47,7 @@ import "core-js/modules/es.string.pad-end";
 }
 ```
 
-然而，现实是，我花了不少时间尝试，分别在 `package.json` 和 `babel.config.json` 中写了配置，似乎都并不生效。无论怎么改配置，打出来的 js 文件始终是 1.2M，并没有按需加载的效果。这让我感到很迷茫。
+然而，现实是，我花了不少时间尝试，分别在 `package.json` 和 `babel.config.json` 中写了配置，似乎都并不生效。无论怎么改配置，打出来的 js 文件夹始终是 1.2M，并没有按需加载的效果。这让我感到很迷茫。
 
 于是查了下[CRA 源码](https://github.com/facebook/create-react-app/blob/3880ba6cfd98d9f2843217fd9061e385274b452f/packages/react-scripts/config/webpack.config.js#L411)，发现不仅是 webpack 配置，CRA 创建的项目默认连 babel 配置都不支持。那就只能用 `react-app-rewired` + `customize-cra` 来改了~看文档就会用，很方便很直观。
 
@@ -122,8 +122,6 @@ Using targets:
 我怀疑是缓存的问题，删除了 `node_modules/.cache`，不复现。我干脆直接让其他同事拉代码部署了一下，同样不再复现。
 
 而因为发现 `debug` 的用处太晚，我甚至没有及时地监控到之前问题复现的时候，`object.assign` 的 polyfill 是否被正确引入了。这件事就暂时成为了未解之谜…………
-
-这个时候，缺乏经验的我才意识到应该打开 babel 的 debug 模式来看看究竟引入了什么 polyfill。
 
 总之还是记录一下，debug 真的非常好用，不仅可以告诉你 target 的系统/浏览器内核版本，还会在 `usage` 的时候告诉你因什么文件而引入了什么 polyfill，非常非常好用了。
 
