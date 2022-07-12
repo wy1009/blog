@@ -12,7 +12,7 @@ tags: [Babel, CRA]
 
 # CRA 项目引入 babel
 
-原本的 `@babel/polyfill` 已经在 babel 7.4.0 版本中被弃用，如今完整的 polyfill 已经转移到了 `core-js` 中。实际上，直接 `import core-js` 就可以解决所有问题了。但意味着引入了所有的 polyfill，不管你想支持的浏览器版本，不管你实际使用了哪些方法。这势必会造成包的臃肿，因而需要对 babel 进行配置。
+原本的 `@babel/polyfill` 已经在 babel 7.4.0 版本中被弃用，如今完整的 polyfill 已经转移到了 `core-js` 中。实际上，直接 `import core-js` 就可以解决所有问题了。但这就意味着引入了所有的 polyfill，不管你想支持的浏览器版本，不管你实际使用了哪些方法。这势必会造成包的臃肿，因而需要对 babel 进行配置。
 贴心的 babel 提供了两种按需加载方式，`@babel/preset-env` 的 `useBuiltIns` 可配置为 `entry` 或 `usage`。
 如果配置为 `entry`，babel 则会通过对 browserlists 的配置，按需引入 `core-js` 的代码，如官方示例：
 
@@ -40,7 +40,7 @@ import "core-js/modules/es.string.pad-end";
       "@babel/preset-env",
       {
         "useBuiltIns": "usage",
-        "corejs": "3.23" // usage 才需要该配置
+        "corejs": "3.23"
       }
     ]
   ]
