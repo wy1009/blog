@@ -133,3 +133,13 @@ The corejs3 polyfill added the following polyfills:
   es.regexp.test { "android":"4.4.3", "chrome":"79", "edge":"97", "firefox":"96", "ie":"11", "ios":"12.2", "opera":"82", "safari":"13.1", "samsung":"16" }
   es.object.assign { "android":"4.4.3", "chrome":"79", "edge":"97", "firefox":"96", "ie":"11", "ios":"12.2", "opera":"82", "safari":"13.1", "samsung":"16" }
 ```
+
+# Vue 项目的一个兼容问题
+
+最初白屏，发现是箭头函数导致。项目中所有代码应该都过了 babel，认为有可能是 browserlist 覆盖的版本过高，或者是 node_modules 中的内容带出来的。
+查看打包内容，其中有一个 =>，认为是 node_modules 带来的。
+查看 vue-cli 文档，发现 transpileDependencies 可以显式设置将什么包过一遍 babel-loader。但问题是，我们无法定位我们打包文件中的那个箭头所对应的包。
+此时，忽然发现物理机打包没有同样的问题，ci 构建却有问题。
+这其中理论上讲不应该有什么区别。
+考虑到是第三方的包有问题，包的内容本身并没有经过 babel-loader，只能理解为是包本身的内容有差异。将两边打包后的文件拉出来，发现 ci 构建的那个 build 文件确实是不同的，里面有大量的箭头函数。所以我们本地构建包看到的那个箭头函数并没有引发问题，实际引发问题的是 ci 构建得到的大量箭头函数。
+如果是这样，可能是包的版本问题。查看 ci 构建命令，发现确实 ignore 了 lockfile（打包命令含 --no-lockfile）。询问运维，这（可能是为了解决内部项目构建速度的问题，统一将拉包的 registry 改为内部的一个源）。
