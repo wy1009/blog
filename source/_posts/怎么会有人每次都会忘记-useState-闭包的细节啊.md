@@ -15,3 +15,20 @@ tags: [JavaScript, React.js, 源码]
 ![如果以不改变引用的形式改变 state，不会有闭包导致的问题](https://wx4.sinaimg.cn/mw2000/7b1152ffly1h5re6r83dzj206a08s75e.jpg)
 
 控制台输出两次是因为有两个组件在跑，不必在意。
+
+另外，useState 实际运行的原理确实是，有一个值在 fiber 上，render 的时候复制一个值在函数作用域里。浅复制。
+所以，在 state 为引用值的情况下，直接改变 state 的值（不使用 setState），函数作用域里的值改变，fiber 上的值也改变。
+在 state 为普通值的情况下，直接改变 state 的值（不使用 setState），函数作用域里的值改变，fiber 上的值不变。
+所以，每次 render 时使用的 state，都是从 fiber 上 state 进行一次浅复制的值。
+demo 如下：
+
+![](https://wx4.sinaimg.cn/mw2000/7b1152ffly1h5sawl9j6bj20zo0lstgm.jpg)
+
+用 refresh 值造成页面刷新，观察最新从 fiber 里取出的 state。
+后面带 interval 的则是一直被计时器操纵的 state。结果与预想相同：
+
+![](https://wx4.sinaimg.cn/mw2000/7b1152ffly1h5saykehz4j207x09lgnl.jpg)
+
+被 interval 操纵的值一直在变，但是从 fiber 取的值一直是初始值。
+
+估计：setState 的过程，会对页面造成渲染，然后把值同步到 fiber 上。不调用 set fiber 上的值永不改变。
